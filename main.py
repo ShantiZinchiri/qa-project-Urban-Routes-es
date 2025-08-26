@@ -347,7 +347,7 @@ class TestUrbanRoutes:
         print("[9] Ordenando taxi...")
         page.order_taxi()
         page.wait_for_search_modal()
-        print("[9.1] Modal de búsqueda detectado ✅")
+        print("[9.1] Modal de búsqueda detectado ")
 
         print("[10] (Opcional) Esperando información del conductor...")
         got_driver = page.wait_for_driver_info_optional(timeout=20)
