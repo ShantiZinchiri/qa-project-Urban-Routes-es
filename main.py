@@ -320,38 +320,37 @@ class TestUrbanRoutes:
     def test_pedir_taxi_completo(self, driver):
         page = UrbanRoutesPage(driver)
 
-        # 1) Abrir app
+        print("[1] Abriendo la app...")
         page.open()
 
-        # 2) Configurar dirección (el repo tiene un ejemplo, aquí lo replicamos)
+        print("[2] Configurando direcciones...")
         page.set_route(from_addr="East 2nd Street, 601", to_addr="1300 1st St")
 
-        # 3) Seleccionar tarifa Comfort
+        print("[3] Seleccionando tarifa Comfort...")
         page.select_comfort_tariff()
 
-        # 4) Rellenar número de teléfono (usa la función de interceptación de código)
+        print("[4] Ingresando teléfono...")
         page.fill_phone_and_confirm(phone_number="+15555550123")
 
-        # 5) Agregar una tarjeta de crédito (con blur en CVV antes de presionar 'Link')
+        print("[5] Agregando tarjeta...")
         page.add_credit_card(number="4242 4242 4242 4242", mm_yy="12/29", cvv="123")
 
-        # 6) Escribir un mensaje para el conductor
-        page.write_driver_message("Hola, por favor tocar el claxon suave al llegar. Gracias.")
+        print("[6] Escribiendo mensaje para el conductor...")
+        page.write_driver_message("Hola, por favor tocar el claxon suave al llegar.")
 
-        # 7) Pedir manta y pañuelos
+        print("[7] Pidiendo manta y pañuelos...")
         page.toggle_blanket_and_tissues()
 
-        # 8) Pedir 2 helados
+        print("[8] Pidiendo dos helados...")
         page.add_two_ice_creams()
 
-        # 9) Pedir taxi y verificar modal de búsqueda
+        print("[9] Ordenando taxi...")
         page.order_taxi()
         page.wait_for_search_modal()
+        print("[9.1] Modal de búsqueda detectado ✅")
 
-        # 10) (Opcional) Esperar información del conductor
-        got_driver = page.wait_for_driver_info_optional(timeout=90)
+        print("[10] (Opcional) Esperando información del conductor...")
+        got_driver = page.wait_for_driver_info_optional(timeout=20)
+        print(f"[10.1] ¿Apareció conductor?: {got_driver}")
 
-        # Aserciones básicas: el modal de búsqueda aparece; y si tenemos suerte, también el conductor.
-        assert True, "Se alcanzó el flujo hasta el modal de búsqueda sin excepciones."
-        # El opcional no debe romper la prueba; lo reportamos en consola para diagnóstico.
-        print(f"[INFO] Información de conductor visible: {got_driver}")
+        assert True
