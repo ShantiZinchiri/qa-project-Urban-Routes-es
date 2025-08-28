@@ -6,11 +6,11 @@ class UrbanRoutesPage:
   def __init__(self, driver):
     self.driver = driver
 
-  # Recovers the selected element by selector
+  # Recupera el elemento seleccionado mediante un selector
   def __find_element(self, elm):
     return self.driver.find_element(*elm)
 
-  # Setter and getter for fields, mostly used in assertions
+  # Métodos setter y getter para campos, utilizados principalmente en aserciones
   def set_from(self, from_address):
     self.__find_element(utils.from_field).send_keys(from_address)
 
@@ -44,14 +44,14 @@ class UrbanRoutesPage:
   def get_order_screen_title(self):
     return self.__find_element(utils.order_wait_screen_title).get_attribute('innerText')
 
-  # Interactions related to initial cab selection
+  # Interacciones relacionadas con la selección inicial del taxi
   def begin_cab_request_procedure(self):
     self.__find_element(utils.request_cab_btn).click()
 
   def select_comfort_opt(self):
     self.__find_element(utils.comfort_optn).click()
 
-  # Interactions enablers to a secondary window where users input data
+  # Activadores de interacción para una ventana secundaria donde los usuarios ingresan datos
   def enable_phone_input_dialog(self):
     self.__find_element(utils.phone_btn).click()
 
@@ -61,7 +61,7 @@ class UrbanRoutesPage:
   def enable_credit_card_input_dialog(self):
     self.__find_element(utils.credit_card_optn).click()
 
-  # Interactions such as click button or type into field
+  # Interacciones como hacer clic en un botón o escribir en un campo
   def insert_phone_to_dialog(self, phone_number):
     self.__find_element(utils.add_phone_dialog).send_keys(phone_number)
 
@@ -101,21 +101,21 @@ class UrbanRoutesPage:
   def click_book_trip(self):
     self.__find_element(utils.book_cab_btn).click()
 
-  # Compound methods to allow calling a sequential procedure
-  # Set route, fill out to and from address
+  # Métodos compuestos para permitir la ejecución de un procedimiento secuencial
+  # Establecer la ruta, completar las direcciones de origen y destino
   def set_route(self, address_from, address_to):
     utils.wait_for_presence_input_field(self.driver, utils.to_field)
     self.set_from(address_from)
     self.set_to(address_to)
 
-  # Request comfort cab, orders a cab and selects Comfort option
+  # Solicita un taxi Comfort, realiza el pedido y selecciona la opción Comfort.
   def request_comfort_cab(self):
     utils.wait_for_clickable_element(self.driver, utils.request_cab_btn)
     self.begin_cab_request_procedure()
     utils.wait_for_clickable_element(self.driver, utils.comfort_optn)
     self.select_comfort_opt()
 
-  # Sets the phone number, by adding the number and inserting the confirmation code
+  # Establece el número de teléfono, agregando el número e insertando el código de confirmación.
   def set_phone_number(self, phone_number):
     utils.wait_for_clickable_element(self.driver, utils.phone_btn)
     self.enable_phone_input_dialog()
@@ -130,7 +130,7 @@ class UrbanRoutesPage:
     utils.wait_for_clickable_element(self.driver, utils.confirm_code)
     self.confirm_comfirmation_code_click()
 
-  # Adds a credit card as a payment option
+  # Agregar tarjeta de crédito como pago
   def set_credit_card_number(self, card_number, card_code):
     utils.wait_for_clickable_element(self.driver, utils.payment_btn)
     self.enable_payment_input_dialog()
@@ -146,7 +146,7 @@ class UrbanRoutesPage:
         self.driver, utils.close_payment_modal_btn)
     self.click_close_payment_modal()
 
-  # Adds optional requirements to the special request form
+  # Agrega requisitos opcionales al formulario de solicitud especial.
   def fill_extra_options(self, message_for_driver):
     utils.wait_for_presence_input_field(
         self.driver, utils.requirements_form_open)
@@ -155,7 +155,7 @@ class UrbanRoutesPage:
     self.select_add_icecream()
     self.select_add_icecream()
 
-  # Books the trip with all the options set
+  # Reserva el viaje con todas las opciones configuradas.
   def book_trip(self):
     self.click_book_trip()
     utils.wait_for_visible_element(self.driver, utils.order_wait_screen)
